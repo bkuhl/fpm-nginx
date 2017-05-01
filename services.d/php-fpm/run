@@ -1,0 +1,5 @@
+#!/bin/sh
+
+su www-data
+
+exec /usr/local/sbin/php-fpm
