@@ -139,13 +139,35 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && apk add --no-cache curl \
     && curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz \
     | tar xfz - -C / \
-    && apk del curl
+    && apk del curl \
 
-ADD services.d /etc/services.d
+# ------------------------ PHP/Laravel Dependencies ------------------------
+
+    # Install Composer dependencies
+    && apk add --update --no-cache \
+
+        # needed for gd
+        libpng-dev libjpeg-turbo-dev \
+
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+
+    # Installing composer
+    && php /var/www/html/infrastructure/install_composer.php \
+
+    # For parallel composer dependency installs
+    && composer global require hirak/prestissimo \
+
+    # Installing common Laravel dependencies
+    && docker-php-ext-install mbstring pdo_mysql gd \
+
+    && chown -R www-data:www-data /home/www-data/
 
 # ------------------------ start fpm/nginx ------------------------
 
-EXPOSE 80 443
+ADD services.d /etc/services.d
+ADD nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
 
 ENTRYPOINT ["/init"]
 CMD []
