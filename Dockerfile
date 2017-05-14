@@ -1,5 +1,9 @@
 FROM php:7.1-fpm-alpine
 
+WORKDIR /var/www/html
+
+ADD install_composer.php /var/www/html/install_composer.php
+
 ENV S6_OVERLAY_VERSION=v1.19.1.1
 
 # ------------------------ add nginx ------------------------
@@ -149,18 +153,22 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
 
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN \
 
     # Installing composer
-    && php /var/www/html/infrastructure/install_composer.php \
-
-    # For parallel composer dependency installs
-    && composer global require hirak/prestissimo \
+    php /var/www/html/install_composer.php \
 
     # Installing common Laravel dependencies
     && docker-php-ext-install mbstring pdo_mysql gd \
 
-    && chown -R www-data:www-data /home/www-data/
+    # For parallel composer dependency installs
+    && composer global require hirak/prestissimo \
+
+    && mkdir -p /home/www-data/.composer/cache \
+
+    && chown -R www-data:www-data /home/www-data/ /var/www/html
 
 # ------------------------ start fpm/nginx ------------------------
 
