@@ -12,7 +12,7 @@ This container is intended to run Laravel applications and thus comes with a few
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
    * [gd](http://php.net/manual/en/book.image.php)
 
-For running cron, migrations or queue workers, check out [bkuhl/php](https://github.com/bkuhl/php)
+For a container to run cron, migrations or queue workers for Laravel applications, check out [bkuhl/php](https://github.com/bkuhl/php)
 
 **Why 2 processes in 1 container?**
 
