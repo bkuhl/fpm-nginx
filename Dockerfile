@@ -166,7 +166,9 @@ RUN \
 
     && mkdir -p /home/www-data/.composer/cache \
 
-    && chown -R www-data:www-data /home/www-data/ /var/www/html
+    && chown -R www-data:www-data /home/www-data/ /var/www/html \
+    
+    && rm /var/www/html/install_composer.php
 
 # ------------------------ start fpm/nginx ------------------------
 
