@@ -4,11 +4,11 @@ WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
-ENV S6_OVERLAY_VERSION=v1.19.1.1 \
-  NGINX_VERSION 1.13.0 \
-  NPM_CONFIG_LOGLEVEL info \
-  NODE_VERSION 7.10.0 \
-  YARN_VERSION 0.24.4
+ENV S6_OVERLAY_VERSION=v1.19.1.1
+ENV NGINX_VERSION 1.13.0
+ENV NPM_CONFIG_LOGLEVEL info
+ENV NODE_VERSION 7.10.0
+ENV YARN_VERSION 0.24.4
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
