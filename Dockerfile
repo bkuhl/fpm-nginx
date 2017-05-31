@@ -153,12 +153,9 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
 
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     
-RUN \
-
     # Installing composer
-    ls -latr /var/www/html/ \
     && php /var/www/html/install_composer.php \
 
     # Installing common Laravel dependencies
