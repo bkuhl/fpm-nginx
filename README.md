@@ -11,7 +11,7 @@ This container is intended to run Laravel applications and thus comes with a few
    * [mbstring](http://php.net/manual/en/book.mbstring.php)
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
    * [gd](http://php.net/manual/en/book.image.php)
- * Laravel Mix support via [Yarn 0.24.4](https://yarnpkg.com), [Npm 4.2.0](https://www.npmjs.com) and [Node 7.10.0](https://nodejs.org)  
+ * Laravel Mix support via [Yarn](https://yarnpkg.com), [Npm](https://www.npmjs.com) and [Node](https://nodejs.org)  
 
 For a container to run cron, migrations or queue workers for Laravel applications, check out [bkuhl/php](https://github.com/bkuhl/php)
 
