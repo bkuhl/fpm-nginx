@@ -143,18 +143,18 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && apk add --no-cache curl \
     && curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz \
     | tar xfz - -C / \
-    && apk del curl \
+    && apk del curl
 
 # ------------------------ PHP/Laravel Dependencies ------------------------
-
+RUN \
     # Install Composer dependencies
-    && apk add --update --no-cache \
+    apk add --update --no-cache \
 
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
 
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-
+    
     # Installing composer
     && php /var/www/html/install_composer.php \
 
@@ -166,7 +166,9 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 
     && mkdir -p /home/www-data/.composer/cache \
 
-    && chown -R www-data:www-data /home/www-data/ /var/www/html
+    && chown -R www-data:www-data /home/www-data/ /var/www/html \
+    
+    && rm /var/www/html/install_composer.php
 
 # ------------------------ add Node / NPM / Yarn ------------------------
 
