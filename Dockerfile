@@ -160,6 +160,9 @@ RUN \
 
     # Installing common Laravel dependencies
     && docker-php-ext-install mbstring pdo_mysql gd \
+    
+    	# Adding opcache
+    	opcache \
 
     # For parallel composer dependency installs
     && composer global require hirak/prestissimo \
@@ -242,7 +245,10 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 ADD services.d /etc/services.d
 ADD nginx.conf /etc/nginx/nginx.conf
-ADD opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+# Adding the opcache configuration into the wrong directory intentionally.
+# This is enabled at runtime
+ADD opcache.ini /usr/local/etc/php/opcache_disabled.ini
 
 EXPOSE 80
 
