@@ -2,10 +2,9 @@ FROM php:7.1-fpm-alpine
 
 WORKDIR /var/www/html
 
-ADD install_composer.php /var/www/html/install_composer.php
+COPY install_composer.php /var/www/html/install_composer.php
 
-ENV \
-  S6_OVERLAY_VERSION=v1.19.1.1 \
+ENV S6_OVERLAY_VERSION=v1.19.1.1 \
   NGINX_VERSION 1.13.0 \
   NPM_CONFIG_LOGLEVEL info \
   NODE_VERSION 7.10.0 \
@@ -241,8 +240,8 @@ RUN addgroup -g 1000 node \
 
 # ------------------------ start fpm/nginx ------------------------
 
-ADD services.d /etc/services.d
-ADD nginx.conf /etc/nginx/nginx.conf
+COPY services.d /etc/services.d
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
