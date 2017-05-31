@@ -1,5 +1,11 @@
 #!/usr/bin/with-contenv sh
 
+# Enable opcache for production
+if ["$APP_ENV" == "production"]; then
+  mv /usr/local/etc/php/opcache_disabled.ini /usr/local/etc/php/opcache.ini
+  echo "Enabling PHP-FPM's opcache for production";
+;fi
+
 su www-data
 
 exec /usr/local/sbin/php-fpm --nodaemonize
