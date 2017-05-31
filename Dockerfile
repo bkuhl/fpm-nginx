@@ -242,7 +242,7 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 ADD services.d /etc/services.d
 ADD nginx.conf /etc/nginx/nginx.conf
-ADD ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+ADD opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 EXPOSE 80
 
