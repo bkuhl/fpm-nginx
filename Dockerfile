@@ -2,13 +2,16 @@ FROM php:7.1-fpm-alpine
 
 WORKDIR /var/www/html
 
-ADD install_composer.php /var/www/html/install_composer.php
+COPY install_composer.php /var/www/html/install_composer.php
 
 ENV S6_OVERLAY_VERSION=v1.19.1.1
+ENV NGINX_VERSION 1.13.0
+ENV NPM_CONFIG_LOGLEVEL info
+ENV NODE_VERSION 7.10.0
+ENV YARN_VERSION 0.24.4
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
-ENV NGINX_VERSION 1.13.0
 
 RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& CONFIG="\
@@ -170,10 +173,7 @@ RUN \
     
     && rm /var/www/html/install_composer.php
 
-# ------------------------ add Node / NPM / Yarn ------------------------
-
-ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 7.10.0
+# ------------------------ add Node / NPM ------------------------
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
@@ -216,11 +216,11 @@ RUN addgroup -g 1000 node \
     && apk del .build-deps \
     && cd .. \
     && rm -Rf "node-v$NODE_VERSION" \
-    && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
+    && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
 
-ENV YARN_VERSION 0.24.4
+# ------------------------ add Yarn ------------------------
 
-RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
+  && apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && for key in \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
   ; do \
@@ -240,8 +240,8 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 # ------------------------ start fpm/nginx ------------------------
 
-ADD services.d /etc/services.d
-ADD nginx.conf /etc/nginx/nginx.conf
+COPY services.d /etc/services.d
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
