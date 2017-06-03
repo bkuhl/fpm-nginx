@@ -4,11 +4,11 @@ install:
  - git clone https://github.com/docker-library/official-images.git ~/official-images
 before_script:
  - docker -v
- - lumenImage="bkuhl/fpm-nginx:lumen-latest"
+ - lumenImage="bkuhl/fpm-nginx:latest"
  - laravelImage="bkuhl/fpm-nginx:laravel-latest"
 script:
+ - docker build -t "$lumenImage" .
  - docker build -t "$laravelImage" -f ./laravel.Dockerfile .
- - docker build -t "$lumenImage" -f ./lumen.Dockerfile .
 # Disabling because we don't want cmd to be overwriteable
 # - ~/official-images/test/run.sh "$image"
  - docker images
