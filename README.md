@@ -12,7 +12,10 @@ This container is intended to run Laravel applications and thus comes with a few
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
    * [gd](http://php.net/manual/en/book.image.php)
    * [opcache](http://php.net/manual/en/book.opcache.php) - Automatically enabled when `APP_ENV=production`
- * Laravel Mix support via [Yarn](https://yarnpkg.com), [Npm](https://www.npmjs.com) and [Node](https://nodejs.org)  
+   
+   
+The `laravel-*` tag contains:
+ * Laravel Mix support via [Node](https://nodejs.org), [Npm](https://www.npmjs.com) and [Yarn](https://yarnpkg.com)  
 
 For a container to run cron, migrations or queue workers for Laravel applications, check out [bkuhl/php](https://github.com/bkuhl/php)
 
