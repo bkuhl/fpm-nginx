@@ -13,16 +13,14 @@ script:
 # - ~/official-images/test/run.sh "$image"
  - export MAJOR=7
  - export MINOR=1
+ - export PATCH=5
  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
  - docker push "$laravelImage" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "$lumenImage" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}"
  - docker images
 before_deploy:
  # Extract the version components out of a `v12.34.56` or `12.34.56` version string (only works if this is a semantically versioned tag)
  #- IFS=. read MAJOR MINOR PATCH <<< "${TRAVIS_TAG#v}"
- - export MAJOR=7
- - export MINOR=1
  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
- - docker push "$laravelImage" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "$lumenImage" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}"
 deploy:
  provider: script
  script: docker push "$laravelImage" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "$lumenImage" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}" && docker tag "$lumenImage" "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:lumen-fpm_v${MAJOR}.${MINOR}"
