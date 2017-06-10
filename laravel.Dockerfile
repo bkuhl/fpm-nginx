@@ -1,8 +1,8 @@
 FROM bkuhl/fpm-nginx:latest
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 7.10.0
-ENV YARN_VERSION 0.24.4
+ENV NODE_VERSION 8.1.0
+ENV YARN_VERSION 0.24.6
 
 # ------------------------ add Node / NPM ------------------------
 
