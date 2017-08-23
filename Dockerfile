@@ -179,7 +179,8 @@ COPY services.d /etc/services.d
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Add default virtualhost
-ADD ./default.conf /etc/nginx/conf.d/default.conf
+# Still needs work
+#ADD ./default.conf /etc/nginx/conf.d/default.conf
 
 # Adding the opcache configuration into the wrong directory intentionally.
 # This is enabled at runtime
