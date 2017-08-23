@@ -12,7 +12,7 @@ This container is intended to run Laravel applications and thus comes with a few
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
    * [gd](http://php.net/manual/en/book.image.php)
    * [opcache](http://php.net/manual/en/book.opcache.php) - Automatically enabled when `APP_ENV=production`
-   
+ * Adding a default virtual host serving apps from `/var/www/html/public`
    
 The `laravel-*` tag contains:
  * Laravel Mix support via [Node](https://nodejs.org), [Npm](https://www.npmjs.com) and [Yarn](https://yarnpkg.com)  
@@ -53,9 +53,6 @@ RUN \
 
     # keep the container light weight
     && rm -rf /home/www-data/.composer/cache
-
-# add vhost config
-ADD ./infrastructure/web/default.conf /etc/nginx/conf.d/default.conf
 
 USER root
 ```
