@@ -4,7 +4,7 @@ WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
-ENV S6_OVERLAY_VERSION=v1.19.1.1
+ENV S6_OVERLAY_VERSION=v1.21.2.1
 ENV NGINX_VERSION 1.13.0
 
 # ------------------------ add nginx ------------------------
