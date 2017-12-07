@@ -1,8 +1,6 @@
 # FPM/Nginx
 
-[![Docker Build](https://img.shields.io/docker/build/bkuhl/fpm-nginx.svg)](https://hub.docker.com/r/bkuhl/fpm-nginx)
-[![Docker Pulls](https://img.shields.io/docker/pulls/bkuhl/fpm-nginx.svg)](https://hub.docker.com/r/bkuhl/fpm-nginx)
-![Automated](https://img.shields.io/docker/automated/bkuhl/fpm-nginx.svg)
+[![Build Status](https://travis-ci.org/bkuhl/fpm-nginx.svg?branch=master)](https://travis-ci.org/bkuhl/fpm-nginx)
 
 This container is intended to run Laravel applications and thus comes with a few items to assist:
 
@@ -14,10 +12,9 @@ This container is intended to run Laravel applications and thus comes with a few
    * [opcache](http://php.net/manual/en/book.opcache.php) - Automatically enabled when `APP_ENV=production`
  * Adding a default virtual host serving apps from `/var/www/html/public`
    
-The `laravel-*` tag contains:
- * Laravel Mix support via [Node](https://nodejs.org), [Npm](https://www.npmjs.com) and [Yarn](https://yarnpkg.com)  
+For Laravel applications, see https://github.com/bkuhl/laravel-fpm-nginx.
 
-For a container to run cron, migrations or queue workers for Laravel applications, check out [bkuhl/php](https://github.com/bkuhl/php)
+For a container to run cron and other CLI tasks, check out [bkuhl/php](https://github.com/bkuhl/php).
 
 **Why 2 processes in 1 container?**
 
@@ -31,7 +28,7 @@ This container uses [S6 Overlay](https://github.com/just-containers/s6-overlay) 
 ## Example Dockerfile
 
 ```
-FROM bkuhl/fpm-nginx:fpm-7_nginx-1
+FROM bkuhl/fpm-nginx:latest
 
 WORKDIR /var/www/html
 
