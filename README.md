@@ -1,8 +1,6 @@
 # FPM/Nginx
 
-[![Docker Build](https://img.shields.io/docker/build/bkuhl/fpm-nginx.svg)](https://hub.docker.com/r/bkuhl/fpm-nginx)
-[![Docker Pulls](https://img.shields.io/docker/pulls/bkuhl/fpm-nginx.svg)](https://hub.docker.com/r/bkuhl/fpm-nginx)
-![Automated](https://img.shields.io/docker/automated/bkuhl/fpm-nginx.svg)
+[![Build Status](https://travis-ci.org/bkuhl/fpm-nginx.svg?branch=master)](https://travis-ci.org/bkuhl/fpm-nginx)
 
 This container is intended to run Laravel applications and thus comes with a few items to assist:
 
