@@ -145,7 +145,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     | tar xfz - -C / \
     && apk del curl
 
-# ------------------------ PHP/Laravel Dependencies ------------------------
+# ------------------------ Common PHP Dependencies ------------------------
 RUN \
     # Install Composer dependencies
     apk add --update --no-cache \
