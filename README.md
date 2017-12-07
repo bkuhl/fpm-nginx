@@ -14,7 +14,7 @@ This container is intended to run Laravel applications and thus comes with a few
    
 For Laravel applications, see https://github.com/bkuhl/laravel-fpm-nginx.
 
-For a container to run cron and other CLI tasks, check out [bkuhl/php](https://github.com/bkuhl/php)
+For a container to run cron and other CLI tasks, check out [bkuhl/php](https://github.com/bkuhl/php).
 
 **Why 2 processes in 1 container?**
 

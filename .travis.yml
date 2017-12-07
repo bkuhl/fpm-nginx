@@ -2,11 +2,9 @@ language: bash
 services: docker
 before_script:
  - docker -v
- - lumenImage="bkuhl/fpm-nginx:latest"
- - laravelImage="bkuhl/fpm-nginx:laravel-latest"
+ - image="bkuhl/fpm-nginx:latest"
 script:
- - docker build -t "$lumenImage" .
- - docker build -t "$laravelImage" -f ./laravel.Dockerfile .
+ - docker build -t "$image" .
  - docker images
 before_deploy:
  # Extract the version components out of a `v12.34.56` or `12.34.56` version string (only works if this is a semantically versioned tag)
@@ -14,7 +12,7 @@ before_deploy:
  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 deploy:
  provider: script
- script: docker push "$lumenImage" && docker tag "$lumenImage" "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker tag "$lumenImage" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker tag "$lumenImage" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "$laravelImage" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}" && docker tag "$laravelImage" "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:laravel-fpm_v${MAJOR}.${MINOR}.${PATCH}"
+ script: docker push "$image" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}"
  skip_cleanup: false
  on:
    tags: true
