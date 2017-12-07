@@ -12,7 +12,7 @@ This container is intended to run Laravel applications and thus comes with a few
    * [opcache](http://php.net/manual/en/book.opcache.php) - Automatically enabled when `APP_ENV=production`
  * Adding a default virtual host serving apps from `/var/www/html/public`
    
-For Laravel applications, see https://github.com/bkuhl/laravel-fpm-nginx.
+For Laravel applications, see [bkuhl/laravel-fpm-nginx](https://github.com/bkuhl/laravel-fpm-nginx).
 
 For a container to run cron and other CLI tasks, check out [bkuhl/php](https://github.com/bkuhl/php).
 
