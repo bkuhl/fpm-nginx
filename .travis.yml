@@ -12,7 +12,7 @@ before_deploy:
  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 deploy:
  provider: script
- script: docker push "$image" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}" && docker tag "$image" "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:fpm_v${MAJOR}.${MINOR}.${PATCH}"
+ script: docker push "$image" && docker tag "$image" "bkuhl/fpm-nginx:v${MAJOR}" && docker push "bkuhl/fpm-nginx:v${MAJOR}" && docker tag "$image" "bkuhl/fpm-nginx:v${MAJOR}.${MINOR}" && docker push "bkuhl/fpm-nginx:v${MAJOR}.${MINOR}" && docker tag "$image" "bkuhl/fpm-nginx:v${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/fpm-nginx:v${MAJOR}.${MINOR}.${PATCH}"
  skip_cleanup: false
  on:
    tags: true
