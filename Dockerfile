@@ -1,11 +1,11 @@
-FROM php:7.2.4-fpm-alpine3.7
+FROM php:7.2.10-fpm-alpine3.7
 
 WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
-ENV S6_OVERLAY_VERSION=v1.21.4.0
-ENV NGINX_VERSION 1.13.11
+ENV S6_OVERLAY_VERSION=v1.21.7.0
+ENV NGINX_VERSION 1.14.0
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
