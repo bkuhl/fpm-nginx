@@ -2,7 +2,7 @@ FROM php:7.2.10-fpm-alpine3.7
 
 WORKDIR /var/www/html
 
-COPY install_composer.sh /var/www/html/install_composer.sh
+COPY install_composer.php /var/www/html/install_composer.php
 
 ENV S6_OVERLAY_VERSION=v1.21.7.0
 ENV NGINX_VERSION 1.14.0
@@ -157,7 +157,7 @@ RUN apk update && apk add \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     
     # Installing composer
-    && /var/www/html/install_composer.sh \
+    && php /var/www/html/install_composer.php \
 
     # Installing common Laravel dependencies
     && docker-php-ext-install mbstring pdo_mysql gd \
@@ -172,7 +172,7 @@ RUN apk update && apk add \
 
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
     
-    && rm /var/www/html/install_composer.sh
+    && rm /var/www/html/install_composer.php
 
 # ------------------------ start fpm/nginx ------------------------
 
