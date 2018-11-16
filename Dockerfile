@@ -1,11 +1,11 @@
-FROM php:7.2.10-fpm-alpine3.7
+FROM php:7.2.12-fpm-alpine3.8
 
 WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
 ENV S6_OVERLAY_VERSION=v1.21.7.0
-ENV NGINX_VERSION 1.14.0
+ENV NGINX_VERSION 1.15.6
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
@@ -67,7 +67,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 		zlib-dev \
 		linux-headers \
 		curl \
-		gnupg \
+		gnupg1 \
 		libxslt-dev \
 		gd-dev \
 		geoip-dev \
@@ -150,28 +150,19 @@ RUN apk add --no-cache curl \
 
 # ------------------------ Common PHP Dependencies ------------------------
 RUN apk update && apk add \
-
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
-
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    
     # Installing composer
     && php /var/www/html/install_composer.php \
-
     # Installing common Laravel dependencies
     && docker-php-ext-install mbstring pdo_mysql gd \
-    
     	# Adding opcache
     	opcache \
-
     # For parallel composer dependency installs
     && composer global require hirak/prestissimo \
-
     && mkdir -p /home/www-data/.composer/cache \
-
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
-    
     && rm /var/www/html/install_composer.php
 
 # ------------------------ start fpm/nginx ------------------------
@@ -182,6 +173,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Adding the opcache configuration into the wrong directory intentionally.
 # This is enabled at runtime
 ADD opcache.ini /usr/local/etc/php/opcache_disabled.ini
+
+ADD healthcheck.ini /usr/local/etc/php/healthcheck.ini
 
 RUN rm -rf /var/cache/apk/* && \
         rm -rf /tmp/*
