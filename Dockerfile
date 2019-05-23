@@ -4,8 +4,8 @@ WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
-ENV S6_OVERLAY_VERSION=v1.21.7.0
-ENV NGINX_VERSION 1.15.7
+ENV S6_OVERLAY_VERSION=v1.22.1.0
+ENV NGINX_VERSION 1.15.12
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
