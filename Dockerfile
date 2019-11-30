@@ -1,4 +1,4 @@
-FROM php:7.3.5-fpm-alpine3.8
+FROM php:7.4.0-fpm-alpine3.10
 
 WORKDIR /var/www/html
 
