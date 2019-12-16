@@ -150,6 +150,8 @@ RUN apk add --no-cache curl \
 
 # ------------------------ Common PHP Dependencies ------------------------
 RUN apk update && apk add \
+        # Needed for mbstring as of php 7.4
+        oniguruma \
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
