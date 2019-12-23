@@ -1,11 +1,11 @@
-FROM php:7.3.5-fpm-alpine3.8
+FROM php:7.4.1-fpm-alpine3.10
 
 WORKDIR /var/www/html
 
 COPY install_composer.php /var/www/html/install_composer.php
 
 ENV S6_OVERLAY_VERSION=v1.22.1.0
-ENV NGINX_VERSION 1.15.12
+ENV NGINX_VERSION 1.17.6
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
@@ -150,6 +150,8 @@ RUN apk add --no-cache curl \
 
 # ------------------------ Common PHP Dependencies ------------------------
 RUN apk update && apk add \
+        # see https://github.com/docker-library/php/issues/880
+        oniguruma-dev \
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
