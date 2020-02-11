@@ -167,6 +167,27 @@ RUN apk update && apk add \
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
     && rm /var/www/html/install_composer.php
 
+
+# ------------------------ xdebug ------------------------
+ARG APP_ENV=production
+ARG REMOTE_XDEBUG_HOST=0.0.0.0
+ARG REMOTE_XDEBUG_PORT=9999
+RUN if [ "$APP_ENV" = "dev" ]; then \
+    pecl install xdebug-2.9.1; \
+    docker-php-ext-enable xdebug; \
+    echo "Enabling xdebug for development"; \
+	rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "#\n" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_host=${REMOTE_XDEBUG_HOST}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_port=${REMOTE_XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    echo "xdebug.idekey=master_debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini; \
+    fi
+
 # ------------------------ start fpm/nginx ------------------------
 
 COPY services.d /etc/services.d
