@@ -4,10 +4,10 @@
 if [ "$APP_ENV" == "production" ]; then
   mv /usr/local/etc/php/opcache_disabled.ini /usr/local/etc/php/opcache.ini
   echo "Enabling PHP-FPM's opcache for production";
-  mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug_disabled.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  echo "Enabling PHP-FPM's opcache for production";
 else
   echo "PHP-FPM's opcache is NOT enabled";
+  mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  echo "Enabling PHP-FPM's xdebug for dev";
 fi
 
 su www-data
