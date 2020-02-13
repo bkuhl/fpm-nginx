@@ -171,10 +171,11 @@ RUN apk update && apk add \
 
 
 # ------------------------ xdebug ------------------------
-ARG APP_ENV=production
+ARG XDEBUG_ENABLE=false
 ARG REMOTE_XDEBUG_HOST=0.0.0.0
 ARG REMOTE_XDEBUG_PORT=9999
-RUN pecl install xdebug-2.9.1; \
+RUN if [ "$XDEBUG_ENABLE" = "true" ]; then \
+	pecl install xdebug-2.9.1; \
     docker-php-ext-enable xdebug; \
     echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
@@ -183,7 +184,8 @@ RUN pecl install xdebug-2.9.1; \
     echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.idekey=x_debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-	mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled;
+	mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled; \
+	fi
 
 # ------------------------ start fpm/nginx ------------------------
 

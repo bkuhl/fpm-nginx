@@ -6,8 +6,12 @@ if [ "$APP_ENV" == "production" ]; then
   echo "Enabling PHP-FPM's opcache for production";
 else
   echo "PHP-FPM's opcache is NOT enabled";
+fi
+
+# Enable xdebug if XDEBUG_ENABLE=true
+if [ "$XDEBUG_ENABLE" == "true" ]; then
   mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  echo "Enabling PHP-FPM's xdebug for dev";
+  echo "Enabling PHP-FPM's xdebug";
 fi
 
 su www-data
