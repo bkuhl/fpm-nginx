@@ -154,6 +154,8 @@ RUN apk update && apk add \
         oniguruma-dev \
         # needed for gd
         libpng-dev libjpeg-turbo-dev \
+		# needed for xdebug
+		$PHPIZE_DEPS \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     # Installing composer
     && php /var/www/html/install_composer.php \
@@ -166,6 +168,24 @@ RUN apk update && apk add \
     && mkdir -p /home/www-data/.composer/cache \
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
     && rm /var/www/html/install_composer.php
+
+
+# ------------------------ xdebug ------------------------
+ARG XDEBUG_ENABLE=false
+ARG REMOTE_XDEBUG_HOST=0.0.0.0
+ARG REMOTE_XDEBUG_PORT=9999
+RUN if [ "$XDEBUG_ENABLE" = "true" ]; then \
+	pecl install xdebug-2.9.1; \
+    docker-php-ext-enable xdebug; \
+    echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.remote_host=${REMOTE_XDEBUG_HOST}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.remote_port=${REMOTE_XDEBUG_PORT}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.idekey=x_debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+	mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled; \
+	fi
 
 # ------------------------ start fpm/nginx ------------------------
 
