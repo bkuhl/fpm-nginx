@@ -10,6 +10,7 @@ This container is intended to run Laravel applications and thus comes with a few
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
    * [gd](http://php.net/manual/en/book.image.php)
    * [opcache](http://php.net/manual/en/book.opcache.php) - Automatically enabled when `APP_ENV=production`
+   * [xdebug](https://xdebug.org) - Only enabled when `XDEBUG_ENABLE=true`.  Only installed when `XDEBUG_ENABLE=true` when building the container
  * Adding a default virtual host serving apps from `/var/www/html/public`
    
 For Laravel applications, see [bkuhl/laravel-fpm-nginx](https://github.com/bkuhl/laravel-fpm-nginx).
