@@ -4,7 +4,7 @@
 
 This container is intended to run Laravel applications and thus comes with a few items to assist:
 
- * [Composer](https://getcomposer.org) (with [hirak/prestissimo](https://github.com/hirak/prestissimo) for parallel dependency installation)
+ * [Composer](https://getcomposer.org)
  * PHP Extensions
    * [mbstring](http://php.net/manual/en/book.mbstring.php)
    * [pdo_mysql](http://php.net/manual/en/ref.pdo-mysql.php)
