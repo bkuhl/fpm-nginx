@@ -163,8 +163,6 @@ RUN apk update && apk add \
     && docker-php-ext-install mbstring pdo_mysql gd \
     	# Adding opcache
     	opcache \
-    # For parallel composer dependency installs
-    && composer global require hirak/prestissimo \
     && mkdir -p /home/www-data/.composer/cache \
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
     && rm /var/www/html/install_composer.php
