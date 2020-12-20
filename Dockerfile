@@ -138,7 +138,7 @@ RUN apk update && apk add \
 # ------------------------ xdebug ------------------------
 ARG XDEBUG_ENABLE=false
 ARG REMOTE_XDEBUG_HOST=0.0.0.0
-ARG REMOTE_XDEBUG_PORT=9003
+ARG REMOTE_XDEBUG_PORT=9999
 RUN if [ "$XDEBUG_ENABLE" = "true" ]; then \
 	pecl install xdebug-3.0.0; \
     docker-php-ext-enable xdebug; \
