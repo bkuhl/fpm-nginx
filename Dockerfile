@@ -2,9 +2,7 @@ FROM php:8.0.0-fpm-alpine3.12
 
 WORKDIR /var/www/html
 
-COPY install_composer.php /var/www/html/install_composer.php
-
-ENV S6_OVERLAY_VERSION=v1.22.1.0
+COPY install_composer.sh /var/www/html/install_composer.sh
 
 # ------------------------ add nginx ------------------------
 # Taken from official nginx container Dockerfile
@@ -113,10 +111,9 @@ RUN set -x \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # ------------------------ add s6 ------------------------
-RUN apk add --no-cache curl \
-    && curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz \
-    | tar xfz - -C / \
-    && apk del curl
+ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.2/s6-overlay-amd64-installer /tmp/
+RUN chmod +x /tmp/s6-overlay-amd64-installer && /tmp/s6-overlay-amd64-installer /
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # ------------------------ Common PHP Dependencies ------------------------
 RUN apk update && apk add \
@@ -128,14 +125,14 @@ RUN apk update && apk add \
 		$PHPIZE_DEPS \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     # Installing composer
-    && php /var/www/html/install_composer.php \
+    && sh /var/www/html/install_composer.sh \
     # Installing common Laravel dependencies
     && docker-php-ext-install mbstring pdo_mysql gd \
     	# Adding opcache
     	opcache \
     && mkdir -p /home/www-data/.composer/cache \
     && chown -R www-data:www-data /home/www-data/ /var/www/html \
-    && rm /var/www/html/install_composer.php
+    && rm /var/www/html/install_composer.sh
 
 
 # ------------------------ xdebug ------------------------
