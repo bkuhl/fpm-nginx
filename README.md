@@ -1,7 +1,5 @@
 # FPM/Nginx - [Dockerhub Repo](https://hub.docker.com/r/bkuhl/fpm-nginx/)
 
-[![Build Status](https://travis-ci.org/bkuhl/fpm-nginx.svg?branch=master)](https://travis-ci.org/bkuhl/fpm-nginx)
-
 This container is intended to run Laravel applications and thus comes with a few items to assist:
 
  * [Composer](https://getcomposer.org)
@@ -38,11 +36,5 @@ ADD --chown=www-data:www-data  . /var/www/html
 
 USER www-data
 
-    # production-ready dependencies
-RUN composer install  --no-interaction --optimize-autoloader --no-dev --prefer-dist \
-
-    # keep the container light weight
-    && rm -rf /home/www-data/.composer/cache
-
-USER root
+RUN composer install  --no-interaction --optimize-autoloader --no-dev --no-cache --prefer-dist
 ```
