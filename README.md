@@ -47,4 +47,3 @@ USER www-data
 
 RUN composer install  --no-interaction --optimize-autoloader --no-dev --no-cache --prefer-dist
 ```
-
