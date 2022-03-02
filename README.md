@@ -20,6 +20,15 @@ For a container to run cron and other CLI tasks, check out [bkuhl/php](https://g
  1. DNS issues - Both the fpm/nginx containers need to be redeployed when your application is updated.  Nginx maintains an internal DNS cache, so while Docker may ensure zero downtime for fpm containers, nginx's internal workings can still create problems.  The only way to solve this (that I've found) is to restart the nginx process.  Having them on the same container eliminates the problem.
  2. Laravel Mix - The front/backend of applications are kind of coupled when using something like Laravel Mix.  The index of assets it creates need to be on both containers and running these separately is possible, but redundant.  
 
+## Executing commands as www-data user
+
+By default container uses `root` user, that is [a requirement for s6 overlay tool](https://github.com/glerchundi/s6-overlay-builder/blob/63ef8f6d1f28797b0027b68f877ce091fafb56b7/README.md#notes). So all of your commands will be executed as `root`
+
+If you need to run commands as php-fpm user (`www-data`), you need to use `runuser` command, example
+```
+runuser -u www-data composer install
+```
+
 ## Adding Processes
 
 This container uses [S6 Overlay](https://github.com/just-containers/s6-overlay) as it's process monitoring solution.  Add a new directory to `services.d` with a `run` file in it where `run` in a shell script that kicks off the process.  The rest is taken care of for you.
@@ -38,3 +47,4 @@ USER www-data
 
 RUN composer install  --no-interaction --optimize-autoloader --no-dev --no-cache --prefer-dist
 ```
+
