@@ -148,7 +148,7 @@ ARG XDEBUG_ENABLE=false
 ARG REMOTE_XDEBUG_HOST=0.0.0.0
 ARG REMOTE_XDEBUG_PORT=9999
 RUN if [ "$XDEBUG_ENABLE" = "true" ]; then \
-	pecl install xdebug-3.0.0; \
+	pecl install xdebug-3.2.0; \
     docker-php-ext-enable xdebug; \
     echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
