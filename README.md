@@ -1,5 +1,8 @@
 # FPM/Nginx - [Dockerhub Repo](https://hub.docker.com/r/bkuhl/fpm-nginx/)
 
+> [!WARNING]
+> This project has been deprecated, we recommend using https://serversideup.net images instead.
+
 This container is intended to run Laravel applications and thus comes with a few items to assist:
 
  * [Composer](https://getcomposer.org)
